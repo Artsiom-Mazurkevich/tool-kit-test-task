@@ -1,0 +1,16 @@
+{
+    "name": "Remote Schema",
+    "schemaPath": "remote-schema.graphql",
+    "extensions": {
+        "endpoints": {
+            "Apollo Fullstack Tutorial": {
+                "url": "https://api.github.com/graphql",
+                "headers": {
+                    "User-Agent": "JS GraphQL",
+                    "Authorization": "Bearer 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"
+                },
+                "introspect": false
+            }
+        }
+    }
+}
