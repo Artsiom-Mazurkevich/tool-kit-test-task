@@ -2,11 +2,13 @@ import React, {useEffect, useState} from 'react';
 import {useQuery} from '@apollo/client'
 import {gql} from 'graphql-tag';
 import {useAppDispatch, useAppSelector} from "../Redux/store";
+import {setCardsAction} from "../Redux/cardsReducer";
 
 
 type REPOSITORY_OBJECT_TYPE = {
     __typename: "SearchResultItemEdge",
     repository: {
+        id: string
         description: string
         languages: {__typename: 'LanguageConnection', nodes: Array<{__typename: 'Language', name: string}>}
         name: string
@@ -33,6 +35,7 @@ const REPOSITORY_CARDS = gql(`
     name_repositories:edges {
       repository:node {
         ... on Repository {
+            id
           name
           stargazerCount
           updatedAt
@@ -71,16 +74,16 @@ export const RepositoryList = () => {
 
     useEffect(() => {
         console.log('useEffect')
-        setRepos(data)
-        console.log(data)
+        if (data) {
+            dispatch(setCardsAction(data))
+        }
     }, [data])
 
     return (
         <div>
             {loading && <div>Loading...</div>}
             {error && <div>Some error: {error.message}</div>}
-            {repos && repos.search_results.name_repositories.map((el: any, i: number) => <div key={i}>{el.repository.name}</div>)}
-            {/*{search_results.name_repositories.map((value, index) => <div key={index}>{value.repository.name}</div>)}*/}
+            {search_results.name_repositories.map(value => <div key={value.repository.id}>{value.repository.name}</div>)}
         </div>
     );
 };

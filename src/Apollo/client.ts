@@ -9,6 +9,5 @@ export const client = new ApolloClient({
     cache: new InMemoryCache(),
     headers: {
         Authorization: `Bearer ${key}`,
-        ["User-Agent"]: "node.js"
     },
 })

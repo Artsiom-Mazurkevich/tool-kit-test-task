@@ -7,6 +7,7 @@ const initialState: REPOSITORY_CARDS_TYPE = {
             {
                 __typename: "SearchResultItemEdge",
                 repository: {
+                    id: '',
                     name: '',
                     description: '',
                     owner: {
