@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {useQuery} from '@apollo/client'
 import {gql} from 'graphql-tag';
+import {useAppDispatch, useAppSelector} from "../Redux/store";
 
 
 type REPOSITORY_OBJECT_TYPE = {
@@ -56,6 +57,8 @@ const REPOSITORY_CARDS = gql(`
 
 export const RepositoryList = () => {
     console.log('RepositoryList is called')
+    const dispatch = useAppDispatch()
+    const {search_results} = useAppSelector(state => state.cardsReducer)
 
     const [repos, setRepos] = useState<any>(null)
 
@@ -77,6 +80,7 @@ export const RepositoryList = () => {
             {loading && <div>Loading...</div>}
             {error && <div>Some error: {error.message}</div>}
             {repos && repos.search_results.name_repositories.map((el: any, i: number) => <div key={i}>{el.repository.name}</div>)}
+            {/*{search_results.name_repositories.map((value, index) => <div key={index}>{value.repository.name}</div>)}*/}
         </div>
     );
 };

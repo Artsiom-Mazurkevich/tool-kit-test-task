@@ -1,14 +1,14 @@
 import {ApolloClient, InMemoryCache} from '@apollo/client'
+import {key} from "../../test_keys";
 
 
-const token = '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'
 
 
 export const client = new ApolloClient({
     uri: 'https://api.github.com/graphql',
     cache: new InMemoryCache(),
     headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${key}`,
         ["User-Agent"]: "node.js"
     },
 })

@@ -30,12 +30,12 @@ const initialState: REPOSITORY_CARDS_TYPE = {
 }
 
 type InitailStateType = typeof initialState
-export type ActionTypeModalReducer = ReturnType<typeof setCardsAction>
+export type ActionTypeCardsReducer = ReturnType<typeof setCardsAction>
 
 
 
 
-export const cardsReducer = (state: InitailStateType = initialState, action: ActionTypeModalReducer): InitailStateType => {
+export const cardsReducer = (state: InitailStateType = initialState, action: ActionTypeCardsReducer): InitailStateType => {
     switch (action.type) {
         case "SET-CARDS":
             return {...action.payload.cards}

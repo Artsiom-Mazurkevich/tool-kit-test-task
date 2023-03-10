@@ -1,22 +1,17 @@
-import {configureStore} from "@reduxjs/toolkit";
+import {combineReducers, configureStore} from "@reduxjs/toolkit";
 import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
 import {cardsReducer} from "./cardsReducer";
 
-export const store = configureStore({
-    reducer: {
-        cards: cardsReducer
-    }
+
+
+export const rootReducer = combineReducers({
+    cardsReducer,
 })
 
 
-
-
-
-
-
-
-
-
+export const store = configureStore({
+    reducer: rootReducer
+})
 
 
 
