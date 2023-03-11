@@ -3,6 +3,7 @@ import {REPOSITORY_CARDS_TYPE} from "../Components/RepositoryList";
 
 const initialState: REPOSITORY_CARDS_TYPE = {
     search_results: {
+        repositoryCount: 0,
         name_repositories: [
             {
                 __typename: "SearchResultItemEdge",

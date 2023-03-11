@@ -1,11 +1,13 @@
 import {combineReducers, configureStore} from "@reduxjs/toolkit";
 import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
 import {cardsReducer} from "./cardsReducer";
+import {paramsReducer} from "./paramsReducer";
 
 
 
 export const rootReducer = combineReducers({
     cardsReducer,
+    paramsReducer
 })
 
 

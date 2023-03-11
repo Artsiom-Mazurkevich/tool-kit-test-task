@@ -23,6 +23,7 @@ type REPOSITORY_OBJECT_TYPE = {
 
 export type REPOSITORY_CARDS_TYPE = {
     search_results: {
+        repositoryCount: number
         name_repositories: Array<REPOSITORY_OBJECT_TYPE>
     }
 }
@@ -32,6 +33,7 @@ export type REPOSITORY_CARDS_TYPE = {
 const REPOSITORY_CARDS = gql(`
     query search_repository($query: String!, $first: Int) {
   search_results:search(query: $query, type: REPOSITORY, first: $first) {
+    repositoryCount
     name_repositories:edges {
       repository:node {
         ... on Repository {
@@ -62,12 +64,11 @@ export const RepositoryList = () => {
     console.log('RepositoryList is called')
     const dispatch = useAppDispatch()
     const {search_results} = useAppSelector(state => state.cardsReducer)
-
-    const [repos, setRepos] = useState<any>(null)
+    const {nameRepository} = useAppSelector(state => state.paramsReducer)
 
     const {loading, data, error} = useQuery<REPOSITORY_CARDS_TYPE, { query: string, first: number }>(REPOSITORY_CARDS, {
         variables: {
-            query: "todos",
+            query: `${nameRepository}`,
             first: 10,
         }
     },)
