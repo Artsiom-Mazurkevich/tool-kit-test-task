@@ -2,12 +2,14 @@ import React, {useEffect} from 'react';
 import {usePagination} from "../utils/usePagination";
 import classnames from 'classnames';
 import './Paginator.scss';
+import {log} from "util";
+import {useAppSelector} from "../Redux/store";
 
 
 type PaginationPropsType = {
-    onPageChange: (n: number | string) => void
+    onPageChange: (n: number) => void
     totalCount: number
-    siblingCount: number,
+    siblingCount?: number,
     currentPage: number
     pageSize: number
     className: string
@@ -15,6 +17,9 @@ type PaginationPropsType = {
 
 
 export const Paginator = (props: PaginationPropsType) => {
+    const {} = useAppSelector(state => state.paramsReducer)
+
+
     const {
         onPageChange,
         totalCount,
@@ -32,11 +37,10 @@ export const Paginator = (props: PaginationPropsType) => {
     });
 
 
-    if (paginationRange) {
         // If there are less than 2 times in pagination range we shall not render the component
-        if (currentPage === 0 || paginationRange.length < 2) {
-            return null;
-        }
+        // if (currentPage === 0 || paginationRange!.length < 2) {
+        //     return null;
+        // }
 
         const onNext = () => {
             onPageChange(currentPage + 1);
@@ -46,7 +50,7 @@ export const Paginator = (props: PaginationPropsType) => {
             onPageChange(currentPage - 1);
         };
 
-        let lastPage = paginationRange[paginationRange.length - 1];
+        let lastPage = paginationRange![paginationRange!.length - 1];
 
         return (paginationRange && <ul className={classnames('pagination-container', {[className]: className})}>
                 {/* Left navigation arrow */}
@@ -71,7 +75,15 @@ export const Paginator = (props: PaginationPropsType) => {
                             className={classnames('pagination-item', {
                                 selected: pageNumber === currentPage
                             })}
-                            onClick={() => onPageChange(pageNumber)}
+                            onClick={() => {
+                                if (pageNumber > currentPage) {
+                                    console.log('after')
+                                }
+                                if (pageNumber < currentPage) {
+                                    console.log('before')
+                                }
+                                onPageChange(Number(pageNumber))
+                            }}
                         >
                             {pageNumber}
                         </li>
@@ -87,7 +99,6 @@ export const Paginator = (props: PaginationPropsType) => {
                     <div className="arrow right"/>
                 </li>
             </ul>
-        );
-    }
+        || <div>error-pagination</div>);
 };
 

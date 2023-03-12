@@ -19,12 +19,7 @@ const range = (start: number, end: number) => {
 
 
 
-export const usePagination = ({
-                                  totalCount,
-                                  pageSize,
-                                  siblingCount = 1,
-                                  currentPage
-                              }: PropsType): Array<string | number> => {
+export const usePagination = ({totalCount, pageSize, siblingCount = 1, currentPage}: PropsType) => {
     const paginationRange = useMemo(() => {
         const DOTS = '...'
         const totalPageCount = Math.ceil(totalCount / pageSize);
