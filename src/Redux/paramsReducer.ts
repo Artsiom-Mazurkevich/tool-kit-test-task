@@ -7,8 +7,8 @@ const initialState = {
     nameRepository: "",
     repositoryCount: 0,
     countPerPage: 10,
-    after: '',
-    before: ''
+    after: null,
+    before: null
 }
 
 type InitialStateType = typeof initialState

@@ -7,6 +7,7 @@ const initialState: REPOSITORY_CARDS_TYPE = {
         name_repositories: [
             {
                 __typename: "SearchResultItemEdge",
+                cursor: '',
                 repository: {
                     id: '',
                     name: '',

@@ -9,6 +9,7 @@ import {setPageAction, setRepositoryCountAction} from "../Redux/paramsReducer";
 
 type REPOSITORY_OBJECT_TYPE = {
     __typename: "SearchResultItemEdge",
+    cursor: string
     repository: {
         id: string
         description: string
@@ -77,11 +78,18 @@ export const RepositoryList = () => {
     const {repositoryCount} = useAppSelector(state => state.paramsReducer)
     const {currentPage} = useAppSelector(state => state.paramsReducer)
     const {countPerPage} = useAppSelector(state => state.paramsReducer)
+    const {after} = useAppSelector(state => state.paramsReducer)
+    const {before} = useAppSelector(state => state.paramsReducer)
 
-    const {loading, data, error} = useQuery<REPOSITORY_CARDS_TYPE, { query: string, first: number }>(REPOSITORY_CARDS, {
+    const afterCondition = !!after
+    const beforeCondition = !!before
+
+    let {loading, data, error} = useQuery<REPOSITORY_CARDS_TYPE, { query: string, first: number, after?: string | undefined, before?: string | undefined }>(REPOSITORY_CARDS, {
         variables: {
-            query: `${nameRepository}`,
             first: 10,
+            query: `${nameRepository}`,
+            ...(afterCondition && {after: `${after}`}) as Object,
+            ...(beforeCondition && {before: `${before}`}) as Object,
         }
     },)
 

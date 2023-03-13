@@ -1,11 +1,11 @@
 import { CodegenConfig } from '@graphql-codegen/cli';
-import {key} from "./test_keys";
+
 const config: CodegenConfig = {
     schema: [
         {
             'https://api.github.com/graphql': {
                 headers: {
-                    Authorization: `Bearer ${key}`,
+                    Authorization: `Bearer ${import.meta.env.VITE_GITHUB_TOKEN}`,
                     ["User-Agent"]: "node.js"
                 },
             },
