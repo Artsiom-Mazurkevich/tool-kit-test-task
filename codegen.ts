@@ -1,6 +1,8 @@
 import { CodegenConfig } from '@graphql-codegen/cli';
 
+
 const config: CodegenConfig = {
+    overwrite: true,
     schema: [
         {
             'https://api.github.com/graphql': {
@@ -11,13 +13,15 @@ const config: CodegenConfig = {
             },
         },
     ],
-    documents: ['src/**/*.tsx'],
+    documents: ['src/**/*.graphql'],
     generates: {
-        './src/__generated__/': {
-            preset: 'client',
-            plugins: [],
+        './src/__generated__/graphql.ts': {
+            plugins: ["typescript", "typescript-operations", "typescript-react-apollo"],
             presetConfig: {
                 gqlTagName: 'gql',
+            },
+            config: {
+                withHooks: true
             }
         }
     },

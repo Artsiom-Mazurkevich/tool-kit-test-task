@@ -1,14 +1,10 @@
 import './App.module.css'
-import {RepositoryList} from "../Components/RepositoryList";
-import {InputSearchRepository} from "../Components/InputSearchRepository";
-import styles from './App.module.css'
-import {Paginator} from "../Components/Paginator";
+import {RepositoryList} from "../Components/RepositoryList/RepositoryList";
 
 function App() {
 
     return (
-        <div className={styles.layout__container}>
-            <InputSearchRepository/>
+        <div>
             <RepositoryList/>
         </div>
     )

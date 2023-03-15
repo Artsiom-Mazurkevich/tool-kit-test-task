@@ -1,0 +1,49 @@
+query getRepositories($query: String!, $first: Int) {
+    search(query: $query, type: REPOSITORY, first: $first) {
+        codeCount
+        repositoryCount
+        edges {
+            node {
+                ... on Repository {
+                    id
+                    name
+                    stargazerCount
+                    updatedAt
+                    owner {
+                        avatarUrl
+                        login
+                        url
+                    }
+                    languages(first: 10) {
+                        nodes {
+                            name
+                        }
+                    }
+                    description
+                }
+            }
+        }
+    }
+}
+
+
+
+
+
+#fragment RepositoryFields on Repository {
+#    id
+#    name
+#    stargazerCount
+#    updatedAt
+#    owner {
+#        avatarUrl
+#        login
+#        url
+#    }
+#    languages {
+#        nodes {
+#            name
+#        }
+#    }
+#    description
+#}
