@@ -4,7 +4,8 @@ import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
 
 
 export const rootReducer = combineReducers({
-
+    // for to remove the error in the console
+    reducer: () => {return null}
 })
 
 

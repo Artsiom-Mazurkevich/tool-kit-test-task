@@ -1,21 +1,34 @@
-import {Input} from "@nextui-org/react";
-import {useGetRepositoriesQuery} from "../../__generated__/graphql";
-
-
+import { useGetRepositoriesQuery } from '../../__generated__/graphql'
+import React, { useEffect, useState } from 'react'
+import { SearchRepository } from "../SearchComponent/SearchRepository"
+import { TableRepositories } from "../Table/TableRepositories";
 
 export const RepositoryList = () => {
-    console.log('RepositoryList is called')
+    const [searchValue, setSearchValue] = useState<string>('')
+    const [first, setFirst] = useState(20)
+
+    const { data, error, loading } = useGetRepositoriesQuery({
+        variables: {
+            query: `${searchValue}`,
+            first: first,
+            after: null,
+            before: null,
+            CountLanguages_first: 15,
+        },
+    })
 
 
-    const {data, error, loading} = useGetRepositoriesQuery({variables: {first:20, query: "it-incubator"}})
+    useEffect(() => {
 
+    }, [searchValue, data])
 
     return (
-        <div>
-            <Input placeholder={'Search repository...'}></Input>
+        <div style={{ marginTop: '30px' }}>
             {error && <div>Some error: {error.message}</div>}
-            {data && data.search.edges?.map(el => <div>{el?.node?.name}</div>)}
+            <SearchRepository loading={loading} setSearchValue={setSearchValue}></SearchRepository>
+            {/*{data && data.search.edges.map((el) => <div key={el.node.id}>{el.node.name}</div>)}*/}
+            {data && <TableRepositories data={data}/>}
+            <button onClick={() => setFirst((prevState) => prevState + 10)}>fetch more</button>
         </div>
-    );
-};
-
+    )
+}

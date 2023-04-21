@@ -11,6 +11,9 @@ import {store} from './Redux/store'
 import {client} from './Apollo/client'
 import {NextUIProvider} from "@nextui-org/react";
 
+
+
+
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
       <Provider store={store}>
           <ApolloProvider client={client}>

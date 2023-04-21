@@ -1,49 +1,30 @@
-query getRepositories($query: String!, $first: Int) {
-    search(query: $query, type: REPOSITORY, first: $first) {
+query getRepositories($query: String!, $first: Int!, $after: String, $before: String, $CountLanguages_first: Int!) {
+    search(query: $query, type: REPOSITORY, first: $first, after: $after, before: $before) {
         codeCount
         repositoryCount
         edges {
             node {
                 ... on Repository {
+                    __typename
                     id
+                    url
                     name
+                    description
+                    isPrivate
                     stargazerCount
-                    updatedAt
                     owner {
                         avatarUrl
                         login
                         url
                     }
-                    languages(first: 10) {
+                    languages (first: $CountLanguages_first) {
                         nodes {
                             name
                         }
                     }
-                    description
                 }
             }
+            __typename
         }
     }
 }
-
-
-
-
-
-#fragment RepositoryFields on Repository {
-#    id
-#    name
-#    stargazerCount
-#    updatedAt
-#    owner {
-#        avatarUrl
-#        login
-#        url
-#    }
-#    languages {
-#        nodes {
-#            name
-#        }
-#    }
-#    description
-#}
