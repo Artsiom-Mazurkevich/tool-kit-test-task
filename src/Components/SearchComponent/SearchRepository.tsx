@@ -13,7 +13,7 @@ export const SearchRepository: FC<{setSearchValue: (value: string) => void; load
 
     return (
         <Container display={'flex'} justify={'center'}>
-            <Input width={"500px"} contentRight={loading && <Loading size="xs" />} placeholder={'Search' +
+            <Input clearable width={"500px"} contentRight={loading && <Loading size="xs" />} placeholder={'Search' +
               ' repository...'} aria-label={'search_repository'} value={value} onChange={e => setValue(e.currentTarget.value)}></Input>
         </Container>
     );

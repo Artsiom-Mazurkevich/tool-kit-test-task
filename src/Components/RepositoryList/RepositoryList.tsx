@@ -2,8 +2,9 @@ import { useGetRepositoriesQuery } from '../../__generated__/graphql'
 import React, { useEffect, useState } from 'react'
 import { SearchRepository } from "../SearchComponent/SearchRepository"
 import { TableRepositories } from "../Table/TableRepositories";
-import { GET_REPOSITORIES, RepositoriesData, RepositoriesVariables } from "../../Apollo/queries/getRepos";
+import { GET_REPOSITORIES, PageInfo, RepositoriesData, RepositoriesVariables } from "../../Apollo/queries/getRepos";
 import { useQuery } from "@apollo/client";
+import { Button } from "@nextui-org/react";
 
 export const RepositoryList = () => {
     const [searchValue, setSearchValue] = useState<string>('')
@@ -25,19 +26,22 @@ export const RepositoryList = () => {
     );
 
 
+
     useEffect(() => {
     }, [searchValue, data])
 
-    const { search } = data!;
+
+    const {search} = data || {search: { pageInfo: {} as PageInfo }}
+
 
 
     return (
-        <div style={{ marginTop: '30px' }}>
+        <div style={{ marginTop: '30px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             {error && <div>Some error: {error.message}</div>}
             <SearchRepository loading={loading} setSearchValue={setSearchValue}></SearchRepository>
             {data && <TableRepositories data={data}/>}
             {search.pageInfo.hasNextPage && (
-              <button onClick={() => fetchMore({ variables: { after: search.pageInfo.endCursor },
+              <Button size={'md'} css={{mb: '20px'}} onPress={() => fetchMore({ variables: { after: search.pageInfo.endCursor },
                       updateQuery: (prev, { fetchMoreResult }) => {
                           if (!fetchMoreResult) return prev;
                           return {
@@ -51,7 +55,7 @@ export const RepositoryList = () => {
                 }
               >
                   Load more
-              </button>
+              </Button>
             )}
         </div>
     )
