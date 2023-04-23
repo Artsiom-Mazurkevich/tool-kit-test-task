@@ -2,9 +2,10 @@ import React, { FC, useEffect } from "react";
 import { Container, Card, Text, Link, Badge } from "@nextui-org/react";
 import { GetRepositoriesQuery } from "../../__generated__/graphql";
 import { StargazerCount } from "../Rating/StargazerCount";
+import { RepositoriesData } from "../../Apollo/queries/getRepos";
 
 
-export const TableRepositories:FC<{data: GetRepositoriesQuery}> = ({data}) => {
+export const TableRepositories:FC<{data: RepositoriesData}> = ({data}) => {
   useEffect(() => {
     }, [])
   return (
@@ -19,7 +20,12 @@ export const TableRepositories:FC<{data: GetRepositoriesQuery}> = ({data}) => {
           <Card.Body>
             <Text><b>Description 🧾 :</b> {r?.node?.description}</Text>
             <Text><b>Languages 🧱 : </b> {r?.node?.languages?.nodes.map(langn => <span style={{marginRight: '7px'}}>#{langn.name}</span>)}</Text>
-            <Text><b>Owner 🙂 :</b> <Link href={r?.node?.owner.url}>{r?.node?.owner.login}</Link></Text>
+            {/*<Text><b>Owner 🙂 :</b> <Link href={r?.node?.owner.url}>{r?.node?.owner.login}</Link></Text>*/}
+            <Text style={{display: "flex", alignItems: "center"}}>
+              <b>Owner</b>
+              <img src={r?.node?.owner.avatarUrl} width={30} height={30} style={{display: "inline-block", borderRadius: "50%", margin: "0 8px"}} alt="avatar" />
+              <Link href={r?.node?.owner.url}>{r?.node?.owner.login}</Link>
+            </Text>
           </Card.Body>
         </Card>;
       })}
